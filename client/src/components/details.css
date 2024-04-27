@@ -1,0 +1,70 @@
+.flights-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background-image: url(/public/images/detailsbackground.jpg); /* Adjust the path */
+  background-size: cover;  /* Cover the entire container */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  width: 100%; /* Ensure the container takes full width */
+  min-height: 100vh; /* Minimum height */
+}
+
+.flight-card {
+  background-color: rgba(240, 240, 240, 0.9); /* Semi-transparent */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 80%;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.flight-info {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.book-button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.book-button:hover {
+  background-color: #45a049;
+}
+
+.price {
+  color: green;
+  font-weight: bold;
+}
+
+.book-button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.book-button:hover {
+  background-color: #45a049;
+}

@@ -1,0 +1,247 @@
+.backdiv {
+  background-image: url('/public/images/Flightbgformpage.jpg');
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding: 0px;
+  height: 100vh;  /* Set the height to be 100% of the viewport height */
+  background-size: cover;  /* Cover the entire space of the element */
+  background-repeat: no-repeat;  /* Do not repeat the background image */
+  background-position: center;  /* Center the background image */
+  /*padding-top: 50px; */
+}
+
+.headingformpage {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: black;
+  z-index: 1;
+  font-size: 50px; /* Increase font size */
+  width: 1500px; /* Increase width */
+  height: 100px; /* Increase height */
+  margin-left: 500px;
+  padding-left: 400px;
+  padding-right: 100px;
+  margin-top: 50px;
+}
+
+
+.page-layout {
+  position: relative; /* Establish this div as the reference for absolute positioning */
+  display: flex; /* Ensure the container uses flexbox layout */
+  justify-content: center; /* Center children horizontally (if needed) */
+  align-items: flex-end; 
+  background-image: url('/public/images/Flightbgformpage.jpg');
+  background-repeat: no-repeat; /* Prevent the background image from repeating */
+  background-size: cover; /* Cover the entire element with the background image */
+  background-position: center; /* Center the background image */
+  display: flex;
+  height: 100%; /* Full viewport height */
+  width: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8); /* Horizontal offset, Vertical offset, Blur radius, Color */
+}
+
+.form-container {
+  background-color: rgba(255, 255, 255, 0.588); /* Semi-transparent white background */
+  padding: 40px; /* Increased padding for more space around the form */
+  border-radius: 50px; /* Rounded corners for the container */
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.4); /* Shadow on right and bottom */
+  display: flex; /* Flex layout to align children */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center align the child elements */
+  font-family: Arial, sans-serif; /* Consistent font across the form */
+  width: 550px; /* Fixed width for the form container */
+  position: absolute; /* Position relative to the nearest positioned ancestor */
+  bottom: 90px; /* 20 pixels from the bottom of the parent div */
+  right: 20px; /* 20 pixels from the right of the parent div */
+  height: 530px;
+  /*margin-bottom: 60px;
+  margin-right: 20px;
+  margin-top: 100px;*/
+}
+
+
+
+.form-header {
+  color: #007bff; /* Blue color for the header */
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.booking-form {
+  width: 100%; /* Full width of the form */
+}
+
+.booking-form .input-group {
+  display: inline;
+  /*justify-content: space-between; */
+  
+}
+
+.booking-form .input-group label {
+  display: block; /* Ensures the label takes the full width above the input field */
+  margin-bottom: 10px; /* Creates space between the label and the input field below it */
+}
+
+.booking-form input[type="text"],
+.booking-form input[type="date"],
+.booking-form select {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 12px 15px;
+  font-size: 16px; /* Larger font size for better readability */
+  font-weight: bold;
+  margin-right: 10px; /* Spacing between the input fields */
+  display: inline;
+}
+
+.booking-form .radio-buttons {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.custom-radio-button {
+  margin-right: 15px;
+  position: relative;
+}
+
+.custom-radio-button input[type='radio'] {
+  opacity: 0;
+  position: absolute;
+  padding: 5px;
+}
+
+.custom-radio-button label {
+  padding-left: 30px;
+  position: relative;
+  cursor: pointer;
+}
+
+.custom-radio-button label:before,
+.custom-radio-button label:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.custom-radio-button label:before {
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border: 2px solid #007bff;
+}
+
+.custom-radio-button label:after {
+  width: 10px;
+  height: 10px;
+  background-color: #007bff;
+  opacity: 0;
+}
+
+.custom-radio-button input[type='radio']:checked + label:after {
+  opacity: 1;
+}
+
+.submit-button {
+  background-color: #007bff; /* Blue background for submit button */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+.submit-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+.transcript-area {
+  width: 100%;
+  height: 100%;
+  border: none; /* Remove border */
+  border-radius: 4px;
+  padding: 12px;
+  box-shadow: none; /* Remove box shadow */
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  resize: none;
+  background-color: transparent; /* Make background transparent */
+}
+
+.transcript-container {
+  margin-top: 20px;
+  width: 300px;
+  padding: 20px;
+  background-color: transparent; /* Make background transparent */
+  border-radius: 8px;
+  box-shadow: none; /* Remove box shadow */
+  position: relative; /* Change position to relative */
+  top: 20px; /* Position from top */
+  left: 20px; /* Position from left */
+  height: 250px;
+}
+
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px; /* Width of the switch */
+  height: 34px; /* Height of the switch */
+}
+
+/* Style the slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc; /* Off state color */
+  transition: .4s;
+  border-radius: 34px; /* Rounded borders */
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2196F3; /* On state color (blue) */
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px); /* Slide effect */
+}
+
+/* Completely hides the checkbox visually but keeps it functionally */
+input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  z-index: -1; /* Ensures it does not interfere with other elements */
+}

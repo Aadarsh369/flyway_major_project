@@ -1,0 +1,44 @@
+.confirmation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    color: #3a3a3a;
+  }
+  
+  .tick-icon {
+    color: green;
+    font-size: 48px; /* Adjust size as needed */
+  }
+  
+  .confirmation-message {
+    margin-top: 20px;
+    font-size: 24px; /* Adjust size as needed */
+  }
+  
+  /* Add this to your confirmation.css */
+.loading-icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  
+  @-webkit-keyframes spin {
+    to {
+      -webkit-transform: rotate(360deg);
+    }
+  }
+  

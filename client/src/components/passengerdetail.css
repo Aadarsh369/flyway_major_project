@@ -1,0 +1,102 @@
+/* PassengerFormStyles.css */
+.passenger-details-container {
+  background: url("/public/images/passengerdetails.jpg") no-repeat center center fixed;
+  background-size: cover;
+  min-height: 100vh; /* Ensures it covers at least the full viewport height */
+  display: flex;
+  align-items: center; /* Aligns content vertically */
+  justify-content: center; /* Aligns content horizontally */
+  width: 100%; /* Covers the full width of the viewport */
+  overflow: auto; /* Ensures everything is visible and scrollable if the content exceeds the viewport height */
+}
+
+
+.passenger-form-container {
+  background-color: rgba(244, 250, 255, 0.95); /* Semi-transparent light blue */
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%; /* Responsive width */
+  max-width: 600px; /* Maximum width */
+}
+
+.passenger-section {
+  display: flex;
+  flex-direction: column; /* Stack inputs vertically */
+  gap: 10px; /* Space between inputs */
+  margin-bottom: 1rem;
+  background-color: #e7eff9;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.passenger-input,
+.passenger-select {
+  width: 100%; /* Full width */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px; /* Larger font size */
+}
+
+.passenger-input:focus,
+.passenger-select:focus {
+  outline: none;
+  border-color: #007bff; /* Consistent focus color */
+}
+
+.passenger-button,
+.passenger-button-remove {
+  width: 100%; /* Full width buttons */
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+  font-weight: bold; /* Bold text */
+}
+
+.passenger-button:hover,
+.passenger-button-remove:hover {
+  opacity: 0.85; /* Slight opacity on hover */
+}
+
+.passenger-button-remove {
+  background-color: #647eff; /* Consistent color for delete */
+}
+
+/* Enhancements for select dropdowns */
+.passenger-select {
+  appearance: none; /* Remove default styling */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23353D47" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+}
+.passenger-button, 
+.passenger-button-remove {
+    background-color: #007bff; /* Primary blue color */
+    color: white;
+    border: none;
+    padding: 12px 24px; /* Sufficient padding for better clickability */
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer; /* Ensures the cursor changes to a pointer to indicate clickability */
+    transition: background-color 0.3s ease; /* Smooth transition for color change */
+}
+
+.passenger-button:hover {
+    background-color: #0056b3; /* Darker blue when hovered */
+}
+
+.passenger-button-remove:hover {
+    background-color: #c82333; /* Darker red when hovered */
+}
+
+/* Adding a hover effect for the 'Add Passenger' button specifically if needed */
+.passenger-button-add:hover {
+    background-color: #0069d9; /* Slightly different blue for differentiation */
+}
+
+/* Adding a hover effect for the 'Pay Now' button specifically if needed */
+.passenger-button-pay:hover {
+    background-color: #004085; /* Much darker blue for a more impactful effect */
+}

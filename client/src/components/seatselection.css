@@ -1,0 +1,275 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+  }
+  
+  html {
+    font-size: 16px;
+  }
+  .seat-selector-container {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    /*height: 100vh;*/
+    margin-left: 40%; /* Add margin to all sides */
+    margin-top: 3%;
+  }
+  .plane {
+    margin: 10px auto;
+    width: 350px;
+  }
+  
+  .cockpit {
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    border-bottom: 10px solid #08dee5;
+  }
+  .cockpit:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: -50px;
+    left: 0;
+    height: 560px;
+    width: 100%;
+    border-radius: 50%;
+    border-right: 10px solid #08dee5;
+    border-left: 10px solid #08dee5;
+  }
+
+  .cockpit::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 12px; /* Adjust the height of the curved line */
+    background: #08dee5;
+    border-radius: 500%;
+    position: absolute;
+    bottom: -10px; /* Adjust the distance from the bottom */
+    left: 0;
+    transform: translateY(-50%);
+  }
+  
+  .cockpit h1 {
+    width: 60%;
+    margin: 100px auto 35px auto;
+  }
+  
+  .exit {
+    position: relative;
+    height: 50px;
+  }
+  .exit:before,
+  .exit:after {
+    content: "EXIT";
+    font-size: 14px;
+    line-height: 18px;
+    padding: 0px 2px;
+    font-family: "Arial Narrow", Arial, sans-serif;
+    display: block;
+    position: absolute;
+    background: green;
+    color: white;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+  .exit:before {
+    left: 0;
+  }
+  .exit:after {
+    right: 0;
+  }
+  
+  .fuselage {
+    border-right: 10px solid #08dee5;
+    border-left: 10px solid #08dee5;
+  }
+  
+  ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  
+  .seats {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+  
+  .seat {
+    display: flex;
+    flex: 0 0 14.28571428571429%;
+    padding: 5px;
+    position: relative;
+  }
+  .seat:nth-child(3n) {
+    margin-right: 14.28571428571429%;
+  }
+  .seat input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+  }
+  .seat input[type="checkbox"]:checked + label {
+    background: #fa0303;
+    animation-name: rubberBand;
+    animation-duration: 300ms;
+    animation-fill-mode: both;
+  }
+  .seat input[type="checkbox"]:disabled + label {
+    background: #dddddd;
+    text-indent: -9999px;
+    overflow: hidden;
+  }
+  .seat input[type="checkbox"]:disabled + label:after {
+    content: "X";
+    text-indent: 0;
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+  }
+  .seat input[type="checkbox"]:disabled + label:hover {
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  .seat label {
+    display: block;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.5rem;
+    padding: 4px 0;
+    background: #007afd;
+    border-radius: 5px;
+    animation-duration: 300ms;
+    animation-fill-mode: both;
+  }
+  .seat label:before {
+    content: "";
+    position: absolute;
+    width: 75%;
+    height: 75%;
+    top: 1px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 3px;
+  }
+  .seat label:hover {
+    cursor: pointer;
+    box-shadow: 0 0 0px 2px #fa0707;
+  }
+  
+  .pay-now-button {
+    background-color: rgb(42, 131, 215);
+    color: white;
+    font-size: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+}
+
+.pay-now-button:hover {
+    background-color: darkblue; /* Darker shade on hover */
+    transform: scale(1.05); /* Slightly larger on hover */
+}
+
+/* Add styles for sidebar */
+.sidebar {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 250px; /* Adjust width as needed */
+    height: auto;
+    background-color: #f0f0f0;
+    padding: 20px;
+    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for separation */
+    margin-right: 3%;
+  }
+  
+  .sidebar-content {
+    position: relative;
+  }
+  
+  .sidebar h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar ul li {
+    margin-bottom: 10px;
+  }
+  
+  .sidebar p {
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  .sidebar button {
+    background-color: rgb(42, 131, 215);
+    color: white;
+    font-size: 20px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transition for hover effects */
+  }
+  
+  .sidebar button:hover {
+    background-color: darkblue; /* Darker shade on hover */
+    transform: scale(1.05); /* Slightly larger on hover */
+  }
+  
+  /* Center the plane compartment */
+  .plane-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .plane {
+    max-width: 400px;
+    height: 700px;
+    margin: 0 10px; /* Adjust margin as needed */
+  }
+  
+  @keyframes rubberBand {
+    0% {
+      transform: scale3d(1, 1, 1);
+    }
+    30% {
+      transform: scale3d(1.25, 0.75, 1);
+    }
+    40% {
+      transform: scale3d(0.75, 1.25, 1);
+    }
+    50% {
+      transform: scale3d(1.15, 0.85, 1);
+    }
+    65% {
+      transform: scale3d(0.95, 1.05, 1);
+    }
+    75% {
+      transform: scale3d(1.05, 0.95, 1);
+    }
+    100% {
+      transform: scale3d(1, 1, 1);
+    }
+  }
