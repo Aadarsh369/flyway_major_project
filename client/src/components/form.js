@@ -148,7 +148,7 @@ function FormPage({ json_data }) {
         </div>
         <div className="form-container">
           <form className="booking-form" onSubmit={handleSubmit}>
-            <div className="radio-container">
+            <div className="radio-container" style={{ fontSize: '13px'}}>
               <label>
                 <input
                   type="radio"
@@ -156,6 +156,7 @@ function FormPage({ json_data }) {
                   value="oneWay"
                   checked={formData.tripType === "oneWay"}
                   onChange={handleChange}
+                  style={{ fontSize: '13px'}}
                 />
                 One Way
               </label>
@@ -166,6 +167,7 @@ function FormPage({ json_data }) {
                   value="twoWay"
                   checked={formData.tripType === "twoWay"}
                   onChange={handleChange}
+                  style={{ fontSize: '13px', marginBottom: '7px'}}
                 />
                 Return
               </label>
@@ -186,6 +188,7 @@ function FormPage({ json_data }) {
               value={formData.from}
               onChange={handleChange}
             />
+            <i class="fas fa-arrows-alt-h"></i>
             <input
               type="text"
               name="to"
@@ -234,8 +237,8 @@ function FormPage({ json_data }) {
               style={{ textDecoration: "none" }}
               onClick={database}
             >
-              <button type="submit" className="submit-button" style={{ fontSize: '14px', marginTop: '10px', width:'100px', position: 'absolute', right: '20px'  }}>
-                Submit
+              <button type="submit" className="submit-button" style={{ fontSize: '13px', width:'70px', height: '30px', position: 'absolute', right: '120px', bottom: '27px', borderRadius: '10px', padding: '3px'}}>
+              <i class="fas fa-search"></i>
               </button>
             </Link>
             </div>

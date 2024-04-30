@@ -10,7 +10,7 @@ function HeroSection() {
   return (
     <div className="hero-container">
       <video src="/videos/FlyWayHomePageStockFootage.mp4" autoPlay loop muted />
-      <h1>TICKET BOOKING MADE EASY</h1>
+      <h1 style={{fontSize: '50px'}}>TICKET BOOKING MADE EASY</h1>
       <p>Try our latest voice command feature</p>
 
       <div className="hero-btns">

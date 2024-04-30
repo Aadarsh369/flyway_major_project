@@ -16,13 +16,13 @@
   right: 20px;
   color: black;
   z-index: 1;
-  font-size: 50px; /* Increase font size */
+  font-size: 40px; /* Increase font size */
   width: 1500px; /* Increase width */
   height: 100px; /* Increase height */
   margin-left: 500px;
   padding-left: 400px;
   padding-right: 100px;
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 
@@ -45,18 +45,18 @@
 
 .form-container {
   background-color: rgba(255, 255, 255, 0.588); /* Semi-transparent white background */
-  padding: 40px; /* Increased padding for more space around the form */
-  border-radius: 50px; /* Rounded corners for the container */
+  padding: 30px; /* Increased padding for more space around the form */
+  border-radius: 15px; /* Rounded corners for the container */
   box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.4); /* Shadow on right and bottom */
   display: flex; /* Flex layout to align children */
   flex-direction: column; /* Stack children vertically */
   align-items: center; /* Center align the child elements */
   font-family: Arial, sans-serif; /* Consistent font across the form */
-  width: 1225px; /* Fixed width for the form container */
+  width: 700px; /* Fixed width for the form container */
   position: absolute; /* Position relative to the nearest positioned ancestor */
-  bottom: 90px; /* 20 pixels from the bottom of the parent div */
+  bottom: 120px; /* 20 pixels from the bottom of the parent div */
   right: 40px; /* 20 pixels from the right of the parent div */
-  height: 280px;
+  height: 200px;
   /*margin-bottom: 60px;
   margin-right: 20px;
   margin-top: 100px;*/
@@ -95,20 +95,20 @@
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 12px 15px;
-  font-size: 16px;
+  padding: 10px 12px;
+  font-size: 10px;
   font-weight: bold;
-  margin-right: 10px;
+  margin-right: 5px;
   display: inline-block;
-  width: calc(29% - 2px); /* Each input field takes up 50% of the available space with some spacing */
+  width: calc(30% - 2px); /* Each input field takes up 50% of the available space with some spacing */
   box-sizing: border-box; /* Ensure padding and border are included in the width */
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .booking-form .radio-buttons {
   display: flex;
   align-items: center;
-  margin: 0px 0 10px 0;
+  margin: 0px 0 0 0;
 }
 
 .custom-radio-button {
@@ -175,24 +175,24 @@
 
 .transcript-container {
   position: absolute;
-  top: 300px; /* Position from the top */
-  right: 0; /* Position from the right */
-  width: 300px;
+  top: 150px; /* Position from the top */
+  right: 30px; /* Position from the right */
+  width: 450px;
   padding: 20px;
   background-color: transparent; /* Make background transparent */
   border-radius: 8px;
   box-shadow: none; /* Remove box shadow */
   font-family: Arial, sans-serif;
   font-size: 16px;
-  height: 250px;
+  height: 150px;
 }
 
 
 .switch {
   position: relative;
-  display: inline-block;
-  width: 60px; /* Width of the switch */
-  height: 34px; /* Height of the switch */
+  /*display: inline-block;*/
+  width: 50px; /* Width of the switch */
+  height: 27px; /* Height of the switch */
   margin-top: 5px;
 }
 
@@ -212,8 +212,8 @@
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: 20px;
+  width: 20px;
   left: 4px;
   bottom: 4px;
   background-color: white;
@@ -250,21 +250,25 @@ input[type="checkbox"] {
 }
 .switch {
   margin-top: 2px; /* Spacing between switch and submit button */
-  display: block; /* Display the switch as a block-level element */
+  display:flex; /* Display the switch as a block-level element */
 }
 
 .submit-button {
   background-color: #007bff; /* Blue background for submit button */
   color: #fff;
   border: none;
-  padding: 8px 16px; /* Adjust padding to make the button smaller */
-  font-size: 14px; /* Reduce font size */
+  font-size: 10px; /* Reduce font size */
   cursor: pointer;
-  border-radius: 4px;
-  margin-top: 3px;
+  border-radius: 0px;
+  align-content: center;
   align-self: flex-end; /* Align the button to the end of the flex container (right corner) */
 }
 
 .submit-button:hover {
   background-color: #0056b3; /* Darker blue on hover */
+}
+
+.fas.fa-arrows-alt-h {
+  font-size: 20px; /* Adjust size as needed */
+  color: #666; /* Color of the icon */
 }

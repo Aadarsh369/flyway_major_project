@@ -1,7 +1,7 @@
 .navbar {
   /*background: linear-gradient(90deg, rgb(5, 173, 245) 0%, rgb(1, 18, 41) 100%); /* Darker blue (Deep Sky Blue) to white gradient */
-  height: 80px;
-  background-color: rgba(0, 0, 0, 0.79);
+  height: 25px;
+  background-color: rgba(0, 0, 0, 0.878);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,8 +17,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80px;
-  max-width: 1500px;
+  width: 1500px;
   color: black;
 }
 
@@ -28,7 +27,7 @@
   margin-left: 20px;
   cursor: pointer;
   text-decoration: none;
-  font-size: 2rem;
+  font-size: 25px;
   display: flex;
   align-items: center;
 }
@@ -51,7 +50,7 @@
 }
 
 .nav-item {
-  height: 80px;
+  height: 40px;
 }
 
 .nav-links {

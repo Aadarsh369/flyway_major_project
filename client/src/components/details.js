@@ -1,49 +1,74 @@
-import React from "react";
+
+import React, { useState, useEffect } from "react";
+import { useLocation, useHistory } from "react-router-dom";
+import loadingPlaneGif from "./loading.gif";
 import "./details.css";
-import { Link } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
 
 function Details() {
   const location = useLocation();
   const history = useHistory();
-  const flights = location.state ? location.state.flights : []; 
-  
+  const [loading, setLoading] = useState(true);
+  const flights = location.state ? location.state.flights : [];
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 6000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleBookNow = (flight) => {
-    // Sending the flight details to the server
+    setLoading(true);
+
     fetch('http://localhost:3001/selectedflight', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(flight) // Sending the entire flight object
+      body: JSON.stringify(flight)
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
     .then(data => {
       console.log('Booking confirmed:', data);
-      history.push('/passengerdetails', { flightDetails: data }); // Navigate to payment with data
+      setLoading(false);
+      history.push('/payment');
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+      console.error('Error:', error);
+      setLoading(false);
+    });
   };
 
   return (
     <div className="flights-container">
-      {flights.map((flight, index) => (
-        <div key={index} className="flight-card">
-          <div className="flight-info">
-            <div><strong>From:</strong> {flight.from}</div>
-            <div><strong>To:</strong> {flight.to}</div>
-            <div><strong>Airline:</strong> {flight.airline}</div>
-            <div><strong>Flight Number:</strong> {flight.flightNumber}</div>
-          </div>
-          <button className="book-button" onClick={() => handleBookNow(flight)}>
-            Book Now
-          </button>
+      {loading ? (
+        <div className="loading-animation">
+          <img src={loadingPlaneGif} alt="Loading animation of a plane" style={{ width: "2000px", height: "800px" }} />
         </div>
-      ))}
+      ) : (
+        flights.map((flight) => (
+          <div key={flight.id} className="flight-card">
+            <div className="flight-info">
+              <div><strong>From:</strong> {flight.from}</div>
+              <div><strong>To:</strong> {flight.to}</div>
+              <div><strong>Airline:</strong> {flight.airline}</div>
+              <div><strong>Flight Number:</strong> {flight.flightNumber}</div>
+              <div><strong>Price:</strong> {flight.price}</div>
+            </div>
+            <button className="book-button" onClick={() => handleBookNow(flight)}>
+              Book Now
+            </button>
+          </div>
+        ))
+      )}
     </div>
   );
 }
 
-export default Details;
+export default Details;
