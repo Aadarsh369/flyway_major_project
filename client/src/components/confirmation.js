@@ -1,39 +1,65 @@
+
 import React, { useState, useEffect } from 'react';
-import { jsPDF } from 'jspdf'; // Import jsPDF
+import axios from 'axios'
+// import { jsPDF } from 'jspdf'; // Import jsPDF
 import './confirmation.css';
 
 function Confirmation() {
-  const [loading, setLoading] = useState(true);
+ 
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [downloadUrl, setDownloadUrl] = useState(null);
+
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000);
+    // Simulate PDF generation (replace with your actual logic)
+    const generatePdf = async () => {
+      setIsGeneratingPdf(true);
+      // Simulate some delay for PDF generation
+      await new Promise((resolve) => setTimeout(resolve, 2000)); 
+      setIsGeneratingPdf(false);
+      setDownloadUrl('http://localhost:3001/getPdfGenerated'); // Replace with actual URL
+    };
 
-    return () => clearTimeout(timer);
+    generatePdf();
+
   }, []);
+ 
+  const handleDownload = async () => {
+    if (downloadUrl) {
+     const response=await axios.get(downloadUrl,{
+      responseType:'blob',
+     });
 
-  useEffect(() => {
-    // Check if loading is false and then generate the PDF
-    if (!loading) {
-      const pdf = new jsPDF();
-      pdf.text("Booking Confirmed", 20, 20); // Add text at position (20, 20)
-      pdf.save("booking-confirmation.pdf"); // Save the PDF with a filename
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'generated_ticket.pdf';
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
-  }, [loading]); // This effect depends on the loading state
+  };
 
   return (
     <div className="confirmation-container">
-      {loading ? (
-        <div className="loading-icon">.</div>
+     
+      {isGeneratingPdf ? (
+        <p>Generating PDF...</p>
       ) : (
         <>
+          <button onClick={handleDownload} disabled={!downloadUrl}>
+            Download PDF
+            </button>
           <div className="tick-icon">✓</div>
           <div className="confirmation-message">Booking Confirmed</div>
         </>
       )}
+         
+       
     </div>
   );
 }
 
 export default Confirmation;
+

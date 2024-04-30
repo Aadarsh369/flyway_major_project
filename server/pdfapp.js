@@ -37,6 +37,11 @@ const client = new MongoClient(process.env.MONGODB_URI);
 // Global variable to hold the latest processed data
 let latestProcessedData = null;
 
+const PassengerSchema = new mongoose.Schema({
+  transcript: String,
+  timestamp: { type: Date, default: Date.now }
+});
+const passenger = mongoose.model('Transcript', TranscriptSchema);
 // Route for posting transcripts
 app.post('/transcripts', (req, res) => {
     if (!req.body.transcript) {
@@ -277,6 +282,7 @@ app.post('/passengerdata', async (req, res) => {
             state: PassengerData.state
         };
         const data =  await fetchPassengerData(passengerData);
+
         res.json({ message: 'Passenger added successfully', data })
     }
     catch (error) {
@@ -286,35 +292,6 @@ app.post('/passengerdata', async (req, res) => {
 });
 
 // ... other setup ...
-
-app.get('/getPdfGenerated', (req, res) => {
-  const filePath = `./output5.pdf`;
-
-  // Error handling: Make sure the file exists
-  fs.access(filePath, fs.constants.F_OK, (err) => {
-    if (err) {
-      console.error('PDF file not found:', err);
-      res.status(404).send('PDF file not found');
-      return;
-    }
-
-    // Set headers for download
-    res.setHeader('Content-Type', 'application/pdf'); 
-    res.setHeader('Content-Disposition', 'attachment; filename="output5.pdf"'); 
-
-    // Create a read stream to pipe the file directly to the response
-    const fileStream = fs.createReadStream(filePath);
-    fileStream.pipe(res);
-    res.send("PDF sent successfully");
-  });
-});
-//  let result = [];
-async function fetchPassengerData(passengerData) {
-    if(passengerData != []){
-     const result = JSON.stringify(passengerData);
-     return result;
-    }
-}
 
 app.get('/getPdfGenerated', (req, res) => {
   const filePath = `./output5.pdf`;
@@ -330,13 +307,29 @@ app.get('/getPdfGenerated', (req, res) => {
     // Set headers for download
     res.setHeader('Content-Type', 'application/pdf'); 
     res.download(filePath)
-  
-  });
+  
+  });
 });
+//  let result = [];
+async function fetchPassengerData(passengerData) {
+    if(passengerData != []){
+     const result = JSON.stringify(passengerData);
+     return result;
+    }
+}
 
 
 async function combinedData(flightDetails) {
-    
+    // const [passangerresult, setpassangerresult] = useState([{
+    //     name: '',
+    //     age: '',
+    //     gender: '',
+    //     email: '',
+    //     phoneNumber: '',
+    //     countryCode: '',
+    //     state: ''
+    //   }]);
+    const passangerresult = [];
     try {
         console.log("Inside combinedData function");
         console.log("Flight details:", flightDetails);
@@ -344,9 +337,9 @@ async function combinedData(flightDetails) {
         const userdata = await fetchLatestUserData();
         console.log("User data::", userdata);
 
-    
+        const passengerData=await fetchPassengerData()
         // const passangerresult = await fetchPassengerData();
-        //console.log("Passenger Data::L",passangerresult);
+        console.log("Passenger Data::L",passangerresult);
 
         const userData= {
             name: userdata.name,
@@ -355,7 +348,7 @@ async function combinedData(flightDetails) {
             returnDate: "21 APR 24",
         };
         // Generate PDF document
-        await generatePDF(flightDetails, userData);
+        await generatePDF(flightDetails, userData,passangerresult);
   
         // const filePath = 'output.pdf';
         // const file = fs.createReadStream(filePath);
@@ -369,14 +362,14 @@ async function combinedData(flightDetails) {
     }
 }
 
-function generatePDF(flightDetails, userData) {
+function generatePDF(flightDetails, userData,passangerresult) {
     return new Promise((resolve, reject) => {
       const doc = new PDFDocument();
       const stream = fs.createWriteStream('output5.pdf');
       doc.pipe(stream);
 
         doc.fontSize(8);
-      //doc.text(passangerresult)
+      doc.text(passangerresult)
       
       
     //   await flightDetails
@@ -397,10 +390,10 @@ function generatePDF(flightDetails, userData) {
         for (let index = 0; index < 20; index++) {
           if((box_factor+index)%2==0){
             doc.rect(doc.x-50, index*42, 40, doc.y-30).fillOpacity(0.2)
-            .stroke();
+            .fillAndStroke("red", "#900");
           }
         else {
-            doc.fillOpacity(0.4).rect(doc.x-80, 10+index*42, 40, doc.y-30).stroke();
+            doc.fillOpacity(0.4).rect(doc.x-80, 10+index*42, 40, doc.y-30).fillAndStroke("#FFC000","#603c06");
             // doc.rect(doc.x-80, 10+index*42, 40, doc.y-30).stroke().fillOpacity(0.2)
           }
         }
@@ -408,9 +401,9 @@ function generatePDF(flightDetails, userData) {
         for (let index = 0; index < 20; index++) {
           if((box_factor+index)%2==0){
             doc.rect(doc.x+470, index*42, 40, doc.y-30).fillOpacity(0.2)
-            .stroke();
+            .fillAndStroke("red", "#900");
           }
-          else doc.fillOpacity(0.4).rect(doc.x+500, 10+index*42, 40, doc.y-30).stroke();
+          else doc.fillOpacity(0.4).rect(doc.x+500, 10+index*42, 40, doc.y-30).fillAndStroke("#FFC000","#603c06");
         }
     };
     
@@ -594,6 +587,7 @@ function generatePDF(flightDetails, userData) {
         doc.fontSize(40);
         doc.text(`${flightDetails.airline}`,{bold: true, fonts: 'Times-Roman'});
         doc.fontSize(12).text(`STATUS: CONFIRMED ✔✔`);
+        doc.fillColor("blue").fillOpacity(0.8).font('Times-Bold').fontSize(30).text('FLYWAY',{align:'right'});
       doc.end();
   
       stream.on('finish', () => {
