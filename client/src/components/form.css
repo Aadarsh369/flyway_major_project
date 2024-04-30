@@ -52,11 +52,11 @@
   flex-direction: column; /* Stack children vertically */
   align-items: center; /* Center align the child elements */
   font-family: Arial, sans-serif; /* Consistent font across the form */
-  width: 550px; /* Fixed width for the form container */
+  width: 1225px; /* Fixed width for the form container */
   position: absolute; /* Position relative to the nearest positioned ancestor */
   bottom: 90px; /* 20 pixels from the bottom of the parent div */
-  right: 20px; /* 20 pixels from the right of the parent div */
-  height: 530px;
+  right: 40px; /* 20 pixels from the right of the parent div */
+  height: 280px;
   /*margin-bottom: 60px;
   margin-right: 20px;
   margin-top: 100px;*/
@@ -73,6 +73,9 @@
 
 .booking-form {
   width: 100%; /* Full width of the form */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  
 }
 
 .booking-form .input-group {
@@ -93,16 +96,19 @@
   border-radius: 10px;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 12px 15px;
-  font-size: 16px; /* Larger font size for better readability */
+  font-size: 16px;
   font-weight: bold;
-  margin-right: 10px; /* Spacing between the input fields */
-  display: inline;
+  margin-right: 10px;
+  display: inline-block;
+  width: calc(29% - 2px); /* Each input field takes up 50% of the available space with some spacing */
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+  margin-bottom: 12px;
 }
 
 .booking-form .radio-buttons {
   display: flex;
   align-items: center;
-  margin: 20px 0;
+  margin: 0px 0 10px 0;
 }
 
 .custom-radio-button {
@@ -120,6 +126,7 @@
   padding-left: 30px;
   position: relative;
   cursor: pointer;
+  
 }
 
 .custom-radio-button label:before,
@@ -150,17 +157,6 @@
   opacity: 1;
 }
 
-.submit-button {
-  background-color: #007bff; /* Blue background for submit button */
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 4px;
-  margin-top: 20px;
-}
-
 .submit-button:hover {
   background-color: #0056b3; /* Darker blue on hover */
 }
@@ -178,15 +174,16 @@
 }
 
 .transcript-container {
-  margin-top: 20px;
+  position: absolute;
+  top: 300px; /* Position from the top */
+  right: 0; /* Position from the right */
   width: 300px;
   padding: 20px;
   background-color: transparent; /* Make background transparent */
   border-radius: 8px;
   box-shadow: none; /* Remove box shadow */
-  position: relative; /* Change position to relative */
-  top: 20px; /* Position from top */
-  left: 20px; /* Position from left */
+  font-family: Arial, sans-serif;
+  font-size: 16px;
   height: 250px;
 }
 
@@ -196,6 +193,7 @@
   display: inline-block;
   width: 60px; /* Width of the switch */
   height: 34px; /* Height of the switch */
+  margin-top: 5px;
 }
 
 /* Style the slider */
@@ -244,4 +242,29 @@ input[type="checkbox"] {
   margin: 0;
   padding: 0;
   z-index: -1; /* Ensures it does not interfere with other elements */
+}
+
+.radio-container label {
+  flex: 1; /* Each radio button takes up equal space */
+  margin-right: 20px; /* Add spacing between radio buttons */
+}
+.switch {
+  margin-top: 2px; /* Spacing between switch and submit button */
+  display: block; /* Display the switch as a block-level element */
+}
+
+.submit-button {
+  background-color: #007bff; /* Blue background for submit button */
+  color: #fff;
+  border: none;
+  padding: 8px 16px; /* Adjust padding to make the button smaller */
+  font-size: 14px; /* Reduce font size */
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 3px;
+  align-self: flex-end; /* Align the button to the end of the flex container (right corner) */
+}
+
+.submit-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
 }

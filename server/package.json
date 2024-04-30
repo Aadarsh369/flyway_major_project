@@ -21,7 +21,8 @@
     "jspdf": "^2.5.1",
     "mongodb": "^6.5.0",
     "mongoose": "^8.3.2",
-    "pdfkit": "^0.15.0"
+    "pdfkit": "^0.15.0",
+    "pdfkit-table": "^0.1.99"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"

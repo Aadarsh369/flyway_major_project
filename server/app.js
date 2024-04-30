@@ -202,6 +202,7 @@ app.post('/selectedflight', (req, res) => {
     console.log('Received flight details:', flightDetails);
     fetchLatestUserData();
     // Process the booking here, then respond
+    
     res.json({ message: 'Booking processed successfully', flightDetails });
   });
 
