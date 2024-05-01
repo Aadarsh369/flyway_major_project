@@ -16,7 +16,7 @@ app.use(express.json());
 app.use("/api/v1", mainRouter);
 
 // Environment variables
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3005;
 
 // Function to start the server and connect to the database
 const start = async () => {

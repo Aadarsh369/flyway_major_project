@@ -40,7 +40,7 @@ const Register = () => {
     };
 
     try {
-      await axios.post("http://localhost:3001/api/v1/register", formData);
+      await axios.post("http://localhost:3005/api/v1/register", formData);
       toast.success("Registration successful");
       history.push("/login"); // Redirecting to login page after successful registration
     } catch (err) {

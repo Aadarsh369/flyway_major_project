@@ -21,6 +21,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 150px;
 }
 
 
@@ -67,4 +68,166 @@
 
 .book-button:hover {
   background-color: #45a049;
+}
+.flight-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin: 10px 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.flight-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.flight-info {
+  padding: 10px 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.flight-time {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.flight-duration, .flight-route {
+  text-align: center;
+  color: #555;
+}
+
+.flight-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+}
+
+.select-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.select-button:hover {
+  background-color: #45a049;
+}
+
+.fa-heart-o, .fa-arrow-right, .fa-long-arrow-right {
+  margin: 0 5px;
+  color: #ccc;
+}
+.custom-arrow {
+  position: relative;
+  display: inline-block;
+  width: 70px; /* Adjust width to make it longer */
+  height: 3px; /* Arrow thickness */
+  background-color: #ccc; /* Arrow color */
+  margin: 0 5px;
+}
+
+.custom-arrow::after {
+  content: "";
+  position: absolute;
+  top: -5px; /* Adjust to vertically center the arrow tip */
+  right: 0;
+  border-width: 5px 0 5px 5px; /* Creates a triangle */
+  border-style: solid;
+  border-color: transparent transparent transparent #ccc; /* Right arrow */
+}
+.flight-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin: 10px 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.flight-action {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.flight-price {
+  flex-grow: 1; /* Ensures that the price takes all available space pushing the button to the right */
+}
+
+.select-button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  position: relative; /* Position relative to allow precise positioning of pseudo-element */
+  left: 350px;
+  bottom: 150px;
+}
+
+.select-button::before {
+  content: "";
+  position: absolute;
+  left: -30px; /* Distance from the button */
+  top: 50%;
+  transform: translateY(-50%); /* Center vertically relative to the button */
+  height: 125px; /* Adjusted for longer length */
+  width: 2px;
+  background-color: #ccc;
+}
+
+.select-button:hover {
+  background-color: #45a049;
+}
+.flight-number {
+  font-size: 16px;
+  color: #333;
+  text-align: left; /* Aligns the text to the left */
+  width: 100%; /* Ensures it takes the full width if needed */
+  left: 40px;
+}
+.flight-price{
+  
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  position: relative; /* Position relative to allow precise positioning of pseudo-element */
+  left: 350px;
+  bottom: 67px;
+}
+
+.flight-info {
+  font-size: 20px; /* Increase font size as needed */
+  color: #333; /* Optional: sets the text color */
 }

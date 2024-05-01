@@ -9,7 +9,8 @@ const PDFDocument = require('pdfkit-table');
 
 const { MongoClient} = require('mongodb');
 const { spawn } = require('child_process');
-const { options } = require('pdfkit');
+const { stringify } = require('querystring');
+
 
 const app = express();
 app.use(cors());
@@ -24,24 +25,37 @@ db.once('open', function() {
     console.log("Connected successfully to MongoDB via Mongoose");
 });
 
+
+
+
 // Define Mongoose schema and model for transcripts
+
+
+
+const PassengerSchema = new mongoose.Schema({
+  sr_no: Number,
+  name: String,
+  age: Number,
+  gender: String,
+  email: String,
+  phoneNumber: Number || +91,
+  countryCode: Number || 222,
+  state: String,
+  timestamp: { type: Date, default: Date.now }
+});
+const passenger = mongoose.model('Passenger Details', PassengerSchema);
+
+
 const TranscriptSchema = new mongoose.Schema({
     transcript: String,
     timestamp: { type: Date, default: Date.now }
 });
 const Transcript = mongoose.model('Transcript', TranscriptSchema);
 
-// MongoDB client for fetching data
-const client = new MongoClient(process.env.MONGODB_URI);
-
 // Global variable to hold the latest processed data
 let latestProcessedData = null;
 
-const PassengerSchema = new mongoose.Schema({
-  transcript: String,
-  timestamp: { type: Date, default: Date.now }
-});
-const passenger = mongoose.model('Transcript', TranscriptSchema);
+
 // Route for posting transcripts
 app.post('/transcripts', (req, res) => {
     if (!req.body.transcript) {
@@ -243,9 +257,7 @@ app.post('/search-flights', async (req, res) => {
 // });
 
 
-
-
-
+let combined = [];
 app.post('/selectedflight', async (req, res) => {
     const flightdetails = req.body; // Access the flight details sent from the frontend
     console.log('Received flight details:', flightdetails);
@@ -259,7 +271,7 @@ app.post('/selectedflight', async (req, res) => {
         class: "Economy"
     };
     
-        const combined = await combinedData(flightDetails);
+        combined = flightDetails;
 
         res.json({ message: 'Booking processed successfully', combined });
     } catch (error) {
@@ -269,27 +281,26 @@ app.post('/selectedflight', async (req, res) => {
 });
 
 app.post('/passengerdata', async (req, res) => {
-    const PassengerData = req.body; // Access the flight details sent from the frontend
-    console.log('Received passenger details:', PassengerData);
-    try{
-       const passengerData= {
-            name: PassengerData.name,
-            age: PassengerData.age,
-            gender: PassengerData.gender,
-            email: PassengerData.email,
-            phoneNumber: PassengerData.phoneNumber,
-            countryCode: PassengerData.countryCode,
-            state: PassengerData.state
-        };
-        const data =  await fetchPassengerData(passengerData);
+ 
+    if (!req.body.passengerData) {
+        return res.status(400).send('data required is required');
+    }
 
-        res.json({ message: 'Passenger added successfully', data })
-    }
-    catch (error) {
-        console.error("Error fetching Passenger data:", error);
-        res.status(400).json({ error: "Payload received but server disconnected ps: change port cors" });
-    }
+  try{
+    const passengerdetails = await passenger.insertMany(req.body.passengerData);
+    // passengerdetails.save();
+
+      const final = combinedData(combined,passengerdetails)
+     if(passengerdetails)
+            console.log("Saved successfully:", passengerdetails);
+            res.status(201).send('Passenger data is saved in db');
+     }
+     catch(err) {
+            console.error("Save failed:", err);
+            res.status(400).json('Error: ' + err);
+        };
 });
+    
 
 // ... other setup ...
 
@@ -310,36 +321,65 @@ app.get('/getPdfGenerated', (req, res) => {
   
   });
 });
-//  let result = [];
-async function fetchPassengerData(passengerData) {
-    if(passengerData != []){
-     const result = JSON.stringify(passengerData);
-     return result;
+
+
+async function fetchPassengerData() {
+  
+  const uri = process.env.MONGODB_URI;
+    // console.log("MongoDB URI:", uri); // Log MongoDB URI to verify if it's loaded correctly
+
+    const client = new MongoClient(uri);
+  try{
+
+    const database = client.db('test');
+    const collection = database.collection('Passenger Details');
+
+    const contents = { contents: { 
+      name: 1,
+      age: 1,
+      gender: 1,
+      email: 1,
+      phoneNumber: 1,
+      countryCode: 1,
+      state: 1 ,
+      _id: 0 } };
+      
+    const options = {
+        sort: { _id: -1 },
+        limit: 1
+    };
+
+    const result = await collection.find({}, contents).sort({ _id: -1 }).limit(1).toArray();
+
+    if (result.length > 0) {
+        console.log("Latest user data got from the db as passenger data:", JSON.stringify(result));
+    } else {
+        console.log("No users found.");
     }
+    return result[0];
+
+} catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+} finally {
+    await client.close();
+    console.log("Disconnected from MongoDB Atlas");
+}
 }
 
 
-async function combinedData(flightDetails) {
-    // const [passangerresult, setpassangerresult] = useState([{
-    //     name: '',
-    //     age: '',
-    //     gender: '',
-    //     email: '',
-    //     phoneNumber: '',
-    //     countryCode: '',
-    //     state: ''
-    //   }]);
-    const passangerresult = [];
+async function combinedData(flightDetails,passangerresult) {
+    
     try {
         console.log("Inside combinedData function");
         console.log("Flight details:", flightDetails);
         
         const userdata = await fetchLatestUserData();
         console.log("User data::", userdata);
-
-        const passengerData=await fetchPassengerData()
+        
+        // const passengerData=await fetchPassengerData()
         // const passangerresult = await fetchPassengerData();
-        console.log("Passenger Data::L",passangerresult);
+        console.log("Passenger Data::",passangerresult);
 
         const userData= {
             name: userdata.name,
@@ -348,19 +388,16 @@ async function combinedData(flightDetails) {
             returnDate: "21 APR 24",
         };
         // Generate PDF document
-        await generatePDF(flightDetails, userData,passangerresult);
+        await generatePDF(flightDetails, userData,passangerresult[0]);
   
-        // const filePath = 'output.pdf';
-        // const file = fs.createReadStream(filePath);
-        // file.on('open', () => {
-        //     console.log('Starting download...');
-        // });
+        
     
     } catch (error) {
         console.error("Error fetching combined data:", error);
         throw error;
     }
 }
+
 
 function generatePDF(flightDetails, userData,passangerresult) {
     return new Promise((resolve, reject) => {
@@ -369,10 +406,8 @@ function generatePDF(flightDetails, userData,passangerresult) {
       doc.pipe(stream);
 
         doc.fontSize(8);
-      doc.text(passangerresult)
       
       
-    //   await flightDetails
     const lorem = `
     • This is your E-Ticket Iternary. You must bring it to the airport for check-in, and it is recommended you to retain a copy for your records.
     • Each passenger travelling needs a printed copy of this document for immigrations, customs, airport security checks and duty free purchases.
@@ -382,32 +417,32 @@ function generatePDF(flightDetails, userData,passangerresult) {
       
       // Styles for specific elements (adjust as needed)
     
-      const Margin_layout = (doc) => {
+    //   const Margin_layout = (doc) => {
         
-      doc.rect(doc.x-10, -5, 480, doc.y+800).stroke();
+    //   doc.rect(doc.x-10, -5, 480, doc.y+800).stroke();
         
-      let box_factor = 1;
-        for (let index = 0; index < 20; index++) {
-          if((box_factor+index)%2==0){
-            doc.rect(doc.x-50, index*42, 40, doc.y-30).fillOpacity(0.2)
-            .fillAndStroke("red", "#900");
-          }
-        else {
-            doc.fillOpacity(0.4).rect(doc.x-80, 10+index*42, 40, doc.y-30).fillAndStroke("#FFC000","#603c06");
-            // doc.rect(doc.x-80, 10+index*42, 40, doc.y-30).stroke().fillOpacity(0.2)
-          }
-        }
+    //   let box_factor = 1;
+    //     for (let index = 0; index < 20; index++) {
+    //       if((box_factor+index)%2==0){
+    //         doc.rect(doc.x-50, index*42, 40, doc.y-30).fillOpacity(0.2)
+    //         .fillAndStroke("red", "#900");
+    //       }
+    //     else {
+    //         doc.fillOpacity(0.4).rect(doc.x-80, 10+index*42, 40, doc.y-30).fillAndStroke("#FFC000","#603c06");
+    //         // doc.rect(doc.x-80, 10+index*42, 40, doc.y-30).stroke().fillOpacity(0.2)
+    //       }
+    //     }
       
-        for (let index = 0; index < 20; index++) {
-          if((box_factor+index)%2==0){
-            doc.rect(doc.x+470, index*42, 40, doc.y-30).fillOpacity(0.2)
-            .fillAndStroke("red", "#900");
-          }
-          else doc.fillOpacity(0.4).rect(doc.x+500, 10+index*42, 40, doc.y-30).fillAndStroke("#FFC000","#603c06");
-        }
-    };
+    //     for (let index = 0; index < 20; index++) {
+    //       if((box_factor+index)%2==0){
+    //         doc.rect(doc.x+470, index*42, 40, doc.y-30).fillOpacity(0.2)
+    //         .fillAndStroke("red", "#900");
+    //       }
+    //       else doc.fillOpacity(0.4).rect(doc.x+500, 10+index*42, 40, doc.y-30).fillAndStroke("#FFC000","#603c06");
+    //     }
+    // };
     
-    Margin_layout(doc);
+    // Margin_layout(doc);
     //Tittle Section
     
     doc.fillColor("black").fillOpacity(0.9).font('Times-Bold');
@@ -505,6 +540,8 @@ function generatePDF(flightDetails, userData,passangerresult) {
         doc.moveDown()
 
         // table passenger information.......
+
+          let index = 1;
         const tablePassenger = {
             title: "Passenger Information",
             headers: [
@@ -512,25 +549,25 @@ function generatePDF(flightDetails, userData,passangerresult) {
             { label: "Passanger Name", property: 'name', width: 120 },
             { label: "Email", property: 'mail_description', width: 150},
             { label: "Age", property: 'num', width: 100},
-            { label: "Gender", property: 'drop_name', width: 100},
+            { label: "Gender", property: 'drop_name', width: 50},
         ],
             datas: [
                 {   
                   options:{seperation:true},
-                number: `index`, 
-                name: {label: `Mohan`,options:{ fontSize: 8} }, 
-                mail_description: `Email`, 
-                num:  `20`,  
-                drop_name: ` Male`  
+                number: `${index}`, 
+                name: {label: `${passangerresult.name}`,options:{ fontSize: 8} }, 
+                mail_description: `${passangerresult.email}`, 
+                num:  `${passangerresult.age}`,  
+                drop_name: ` ${passangerresult.gender}`  
               },
                 
-              {   
-                number: `index`, 
-                name: {label: `Gohan `,options:{ fontSize: 8} }, 
-                mail_description: `Email`, 
-                num:  `20`,  
-                drop_name: ` Male` , 
-              },
+              // {   
+              //   number: `index`, 
+              //   name: {label: `Gohan `,options:{ fontSize: 8} }, 
+              //   mail_description: `Email`, 
+              //   num:  `20`,  
+              //   drop_name: ` Male` , 
+              // },
             ]
           };
           
@@ -574,7 +611,7 @@ function generatePDF(flightDetails, userData,passangerresult) {
           headRowBackgroundColor:'yellow',
           // headRowBackgroundColor: '#f5f5f5',  // Light gray background for header row 
           prepareRow:()=> {
-                doc.font("Helvetica").fontSize(8).fillColor('green');
+                doc.font("Helvetica").fontSize(8).fillColor('black');
                 
             }
         });
@@ -583,11 +620,12 @@ function generatePDF(flightDetails, userData,passangerresult) {
         // Additional sections or styling can be added here
       doc.moveDown(2.5)
 
-        doc.fillColor("brown").fillOpacity(0.8).font('Times-Bold');
-        doc.fontSize(40);
-        doc.text(`${flightDetails.airline}`,{bold: true, fonts: 'Times-Roman'});
+        // doc.fillColor("brown").fillOpacity(0.8).font('Times-Bold');
+        // doc.fontSize(40);
+        doc.fillColor("#0b77ca").fillOpacity(0.8).font('Times-Bold').fontSize(30).text('FLYWAY',{align:"left"});
+        doc.fillColor("green")
         doc.fontSize(12).text(`STATUS: CONFIRMED ✔✔`);
-        doc.fillColor("blue").fillOpacity(0.8).font('Times-Bold').fontSize(30).text('FLYWAY',{align:'right'});
+        // doc.text(`${flightDetails.airline}`,{bold: true, fonts: 'Times-Roman'});
       doc.end();
   
       stream.on('finish', () => {

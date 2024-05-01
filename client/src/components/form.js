@@ -188,7 +188,6 @@ function FormPage({ json_data }) {
               value={formData.from}
               onChange={handleChange}
             />
-            <i class="fas fa-arrows-alt-h"></i>
             <input
               type="text"
               name="to"
@@ -222,12 +221,13 @@ function FormPage({ json_data }) {
               <option value="business">Business</option>
               <option value="firstClass">First Class</option>
             </select>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-            <label className="switch">
+            <div style={{ display: 'flex', alignItems: 'center'}}>
+            <label className="switch"  style ={{position: 'absolute', right: '210px', bottom: '50px'}}>
               <input
                 type="checkbox"
                 checked={isRecording}
                 onChange={toggleRecording}
+               
               />
               <span className="slider round"></span>
             </label>
@@ -237,7 +237,7 @@ function FormPage({ json_data }) {
               style={{ textDecoration: "none" }}
               onClick={database}
             >
-              <button type="submit" className="submit-button" style={{ fontSize: '13px', width:'70px', height: '30px', position: 'absolute', right: '120px', bottom: '27px', borderRadius: '10px', padding: '3px'}}>
+              <button type="submit" className="submit-button" style={{ fontSize: '13px', width:'70px', height: '30px', position: 'absolute', right: '80px', bottom: '50px', borderRadius: '10px', padding: '3px'}}>
               <i class="fas fa-search"></i>
               </button>
             </Link>

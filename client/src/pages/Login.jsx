@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "../assets/image.png";
+import Images from "../assets/images.jpg";
 import Logo from "../assets/logo.png";
 import GoogleSvg from "../assets/icons8-google.svg";
 import { FaEye } from "react-icons/fa6";
@@ -26,7 +27,7 @@ const Login = () => {
       };
       try {
         const response = await axios.post(
-          "http://localhost:3001/api/v1/login",
+          "http://localhost:3005/api/v1/login",
           formData
         );
         localStorage.setItem('auth', JSON.stringify(response.data.token));
@@ -51,12 +52,12 @@ const Login = () => {
   return (
     <div className="login-main">
       <div className="login-left">
-        <img src={Image} alt="" />
+        <img src={Images} alt="" />
       </div>
       <div className="login-right">
         <div className="login-right-container">
           <div className="login-logo">
-            <img src={Logo} alt="" />
+          
           </div>
           <div className="login-center">
             <h2>Welcome back!</h2>

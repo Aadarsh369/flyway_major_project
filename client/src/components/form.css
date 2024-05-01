@@ -31,7 +31,7 @@
   display: flex; /* Ensure the container uses flexbox layout */
   justify-content: center; /* Center children horizontally (if needed) */
   align-items: flex-end; 
-  background-image: url('/public/images/Flightbgformpage.jpg');
+  background-image: url('/public/images/flightcopy.jpg');
   background-repeat: no-repeat; /* Prevent the background image from repeating */
   background-size: cover; /* Cover the entire element with the background image */
   background-position: center; /* Center the background image */
@@ -52,11 +52,11 @@
   flex-direction: column; /* Stack children vertically */
   align-items: center; /* Center align the child elements */
   font-family: Arial, sans-serif; /* Consistent font across the form */
-  width: 700px; /* Fixed width for the form container */
+  width: 650px; /* Fixed width for the form container */
   position: absolute; /* Position relative to the nearest positioned ancestor */
   bottom: 120px; /* 20 pixels from the bottom of the parent div */
   right: 40px; /* 20 pixels from the right of the parent div */
-  height: 200px;
+  height: 180px;
   /*margin-bottom: 60px;
   margin-right: 20px;
   margin-top: 100px;*/

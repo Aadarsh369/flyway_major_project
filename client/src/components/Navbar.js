@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import './Navbar.css';
 import { useHistory } from 'react-router-dom';
 import Button from './Button'; // Import Button component
-
+import LogoImage from '../assets/xyz.png'
+ 
 function Navbar() {
   const [click, setClick] = useState(false);
   const [buttonText, setButtonText] = useState('Log in');
@@ -53,8 +54,7 @@ function Navbar() {
       <nav className='navbar'>
         <div className='navbar-container'>
           <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
-            <i className="fas fa-plane" /> 
-            FLYWAY 
+          <img src={LogoImage} alt="Logo" style={{ height: "40px", width:'130px' }} />
           </Link>
           <div className='menu-icon' onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />

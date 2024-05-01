@@ -187,3 +187,12 @@
     text-decoration: underline;
   }
   
+  .login-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This will cover the entire area of the div without distorting the image */
+}
+.login-left, .login-right {
+  flex: 1; /* This ensures both divs take up equal space */
+  height: 100vh; /* Maintaining full viewport height */
+}
